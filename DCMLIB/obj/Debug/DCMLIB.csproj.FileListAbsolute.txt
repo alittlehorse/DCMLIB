@@ -23,3 +23,12 @@ E:\github\Homeworks\DCMLIB\DCMLIB\obj\Debug\DCMLIB.csproj.GenerateResource.cache
 E:\github\Homeworks\DCMLIB\DCMLIB\obj\Debug\DCMLIB.csproj.CoreCompileInputs.cache
 E:\github\Homeworks\DCMLIB\DCMLIB\obj\Debug\DCMLIB.exe
 E:\github\Homeworks\DCMLIB\DCMLIB\obj\Debug\DCMLIB.pdb
+E:\github\DCMLIB\DCMLIB\bin\Debug\DCMLIB.exe.config
+E:\github\DCMLIB\DCMLIB\bin\Debug\DCMLIB.exe
+E:\github\DCMLIB\DCMLIB\bin\Debug\DCMLIB.pdb
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.csprojAssemblyReference.cache
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.DecodeForm.resources
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.csproj.GenerateResource.cache
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.csproj.CoreCompileInputs.cache
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.exe
+E:\github\DCMLIB\DCMLIB\obj\Debug\DCMLIB.pdb

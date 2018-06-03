@@ -411,7 +411,14 @@ namespace DCMLIB
         public OB(TransferSyntax syntax) : base(syntax) { }
         public override string GetString(byte[] data, String head)
         {
-            return head+ Encoding.Default.GetString(data, 0, data.Length);
+            uint i =0;
+            short result = 0;
+            while (i < data.Length)
+            {
+                result += (short)data[i];
+
+            }
+            return head + result;
         }
     }
     /// <summary>
@@ -422,7 +429,16 @@ namespace DCMLIB
         public OF(TransferSyntax syntax) : base(syntax) { }
         public override string GetString(byte[] data, String head)
         {
-            return head+GetSingle(data).ToString();
+            uint i = 0;
+            Int32 result = 0;
+            while (i < data.Length - 1)
+            {
+                byte[] buff = ArrayHelper.SplitArray(data, i, i + 3);
+                Int32 temp = GetInt32(buff);
+                result += temp;
+                i += 2;
+            }
+            return head + result.ToString();
         }
     }
     public class OW : LongVR
@@ -430,7 +446,16 @@ namespace DCMLIB
         public OW(TransferSyntax syntax) : base(syntax) { }
         public override string GetString(byte[] data, String head)
         {
-            return head+GetDouble(data).ToString();
+            uint i = 0;
+            Int16 result = 0;
+            while (i < data.Length - 1)
+            {
+                byte[] buff = ArrayHelper.SplitArray(data, i, i + 1);
+                Int16 temp = GetInt16(buff);
+                result += temp;
+                i += 2;
+            }
+            return head + result.ToString();
         }
     }
     public class UN : LongVR
