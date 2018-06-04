@@ -95,7 +95,7 @@ namespace DCMLIB
 
         private void button2_Click(object sender, EventArgs e)
         {
-            DCMFile dcm = new DCMFile(".//gsps.txt");
+            DCMFile dcm = new DCMFile(@".//gsps.dcm");
             uint idx = 0;
             dcm.Decode(null,ref idx);
             string str = dcm.ToString("").Replace('\0', ' ');

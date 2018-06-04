@@ -209,11 +209,14 @@ namespace DCMLIB
         public override List<DCMAbstractType> Decode(byte[] data, ref uint idx)
         {
             //打开filename文件，将文件内容读到缓冲区byte[] data
-            StreamReader sr = new StreamReader(filename, Encoding.Default);
-            String Text = sr.ReadToEnd();
-            data = DecodeForm.HexStringToByteArray(Text);
-            //跳过128字节前导符(idx=128)，读取4字节的”DICM”
-            idx = 128;
+            using (FileStream fs = File.OpenRead(filename))
+            {
+                data = new byte[fs.Length];
+                fs.Read(data, 0, (int)fs.Length);
+            }
+
+                //跳过128字节前导符(idx=128)，读取4字节的”DICM”
+                idx = 128;
             //***
             idx += 4;
             //用ExplicitVRLittleEndian对象实例化filemeta对象，通过其Decode方法从data中读取头元素
@@ -223,7 +226,7 @@ namespace DCMLIB
             //读取(0002,0010)头元素即filemeta[DicomTags.TransferSyntaxUid]的值，
             //在tsFactory中找到对应的数据集传输语法对象赋给基类的syntax字段
             DCMDataElement synelem = (DCMDataElement)filemeta[DicomTags.TransferSyntaxUid];
-            syntax = tsFactory[synelem.vrparser.GetString(synelem.value, "")];
+            syntax = tsFactory[synelem.vrparser.GetString(synelem.value, "").Replace("\0","")];
             //调用base.Decode方法解码数据集
             base.Decode(data, ref idx);
             return items;

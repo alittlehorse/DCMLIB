@@ -146,6 +146,10 @@ namespace DCMLIB
                 {
                     vr = new OF(syntax);
                 }
+                else if (key == "FL")
+                {
+                    vr = new FL(syntax);
+                }
                 return vr;
 
             }
