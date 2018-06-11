@@ -63,14 +63,14 @@ namespace DCMLIB
                     //解出Tag不为DataElemt类型时,重复的递归
                     DCMAbstractType sqelem = Decode(data, ref idx);
                     if (sqelem.gtag == 0xfffe && sqelem.etag == 0xe00d) break;
-                    sqitem[0]=sqelem;
+                    sqitem[0] = sqelem;
                 }
                 return sqitem;
             }
             else if (element.gtag == 0xfffe && element.etag == 0xe00d)  //序列结束标记
             {
                 element.vr = "UL";//回归初始状态
-                element.length = vrdecoder.GetUInt32(data, ref idx); 
+                element.length = vrdecoder.GetUInt32(data, ref idx);
                 //不能用GetLength
                 //且不用解出Value
                 return element;
@@ -78,15 +78,15 @@ namespace DCMLIB
             else if (element.gtag == 0xfffe && element.etag == 0xe0dd)
             {
                 element.vr = "UL";//回归初始状态
-                element.length = vrdecoder.GetUInt32(data, ref idx); 
+                element.length = vrdecoder.GetUInt32(data, ref idx);
                 //不能用GetLength
                 //不用解出Value类了;
                 return element;
             }
 
-
             //查数据字典得到VR,Name,VM
             element.vr = vrdecoder.GetVR(data, ref idx);
+            //0002系类文件头并没有在DicomDirationay内有定义
             DicomDictonaryEntry entry = dictionary.GetEntry(element.gtag, element.etag);
             if (entry != null)
             {
@@ -96,14 +96,26 @@ namespace DCMLIB
             }
             else if (element.vr == "" && element.etag == 0)
                 element.vr = "US";
-            //
-            vrdecoder = vrfactory.GetVR(element.vr);
-            element.vrparser = vrdecoder;
-            //读取值长度
-            element.length = vrdecoder.GetLength(data, ref idx,element.vr);
-            //读取值
-            element.value = vrdecoder.GetValue(data, ref idx, element.length);
-            return element;
+
+            if (element.vr == "OB or OW")
+            {
+                element.vr = "OW";
+            }
+            try
+            {
+                vrdecoder = vrfactory.GetVR(element.vr);
+                element.vrparser = vrdecoder;
+                //读取值长度
+                element.length = vrdecoder.GetLength(data, ref idx, element.vr);
+                //读取值
+                element.value = vrdecoder.GetValue(data, ref idx, element.length);
+                return element;
+            }
+            catch
+            {
+                throw;
+            }
+           
         }
     }
 
