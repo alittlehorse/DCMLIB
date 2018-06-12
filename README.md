@@ -11,4 +11,10 @@ Dicom解码器:
 
 2018/06/07
 
-- 统一了DicomDictionary接口,消去了,中间变量Tag,改正了OB解码中Int8的BUG,增加了WriteValue<T>和ReadValue<T>的末班方法
+- 统一了DicomDictionary接口,消去了中间变量Tag
+- 修改了OB解码中Int8的BUG
+- 增加了WriteValue<T>和ReadValue<T>的模板方法
+
+2018/06/12
+- 增加了图像处理功能
+- 
