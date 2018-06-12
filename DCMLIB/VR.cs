@@ -446,7 +446,7 @@ namespace DCMLIB
         {
             if (typeof(T) == typeof(String))
             {
-                String[] vals = new string[1];
+                String[] vals = new String[1];
                 //引用自身的GetString方法
                 vals[0] = GetString(data, "");
                 return vals as T[];
@@ -521,7 +521,8 @@ namespace DCMLIB
             if (typeof(T) == typeof(DateTime))
             {
                 String dataString = GetString(data, "");
-                DateTime val = Convert.ToDateTime(dataString);
+                DateTime[] val = new DateTime[1];
+                val[0] = Convert.ToDateTime(dataString);
                 return val as T[];
             }
             throw new NotSupportedException();

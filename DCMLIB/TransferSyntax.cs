@@ -46,6 +46,7 @@ namespace DCMLIB
             //读取TAG
             element.gtag = vrdecoder.GetGroupTag(data, ref idx);
             element.etag = vrdecoder.GetElementTag(data, ref idx);
+            //这一项仅仅只用于测试容易看出，Reference==0；
             string tag = "(" + element.gtag.ToString("X4") + "," + element.etag.ToString("X4") + ")";
 
             if (element.gtag == 0xfffe && element.etag == 0xe000)

@@ -243,9 +243,9 @@ namespace DCMLIB
             }
             public override T[] ReadValue<T>(byte[] data)
             {
-                if (typeof(T) == typeof(ushort))
+                if (typeof(T) == typeof(UInt16))
                 {
-                    ushort[] val = new ushort[data.Length / 2];
+                    UInt16[] val = new UInt16[data.Length / 2];
                     uint idx = 0;
                     for (int i = 0; i < val.Length; i++)
                         val[i] = GetUInt16(data, ref idx);
@@ -253,7 +253,7 @@ namespace DCMLIB
                 }
                 if (typeof(T) == typeof(Int16))
                 {
-                Int16[] val = new Int16[data.Length / 2];
+                    Int16[] val = new Int16[data.Length / 2];
                     uint idx = 0;
                     for (int i = 0; i < val.Length; i++)
                         val[i] = GetInt16(data, ref idx);

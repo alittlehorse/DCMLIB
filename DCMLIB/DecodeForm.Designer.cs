@@ -147,7 +147,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 29);
             this.button3.TabIndex = 15;
-            this.button3.Text = "button3";
+            this.button3.Text = "显示图片";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 

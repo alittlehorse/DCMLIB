@@ -64,19 +64,21 @@ namespace DCMLIB
                     {
                         pixel = 0;
                     }
-                    if (pixel >= c - w / 2)
+                    if (pixel >= c + w / 2)
                     {
                         pixel = 255;
                     }
                     else
                     {
-                        pixel = (int)((pixel - c) / w + 0.5) * 255;
+                        pixel = (int)(((pixel - c) / w + 0.5) * 255);
                     }
                     Color p = Color.FromArgb(pixel, pixel, pixel);
                     bmp.SetPixel(j, i, p);
-                    e.Graphics.DrawImage(bmp, 0, 0);
+                    
                 }
+                
             }
+            e.Graphics.DrawImage(bmp, 0, 0);
         }
 
         private void button1_Click(object sender, EventArgs e)
