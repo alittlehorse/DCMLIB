@@ -43,12 +43,18 @@ namespace DCMLIB
 
         public void myPaint(object sender, PaintEventArgs e)
         {
-            //读取窗宽窗位
-            double w = double.Parse(tsWindow.Text);
-            double c = double.Parse(tsLevel.Text);
+            double  w = double.Parse(tsWindow.Text);
+            double  c = double.Parse(tsLevel.Text);
             //获取绘画图像
             Bitmap bmp = new Bitmap(this.Width, this.Height, e.Graphics);
             //窗宽窗位的变化与显示
+
+            paintSH(w, c, bmp);
+            e.Graphics.DrawImage(bmp, 0, 0);
+        }
+        public Bitmap paintSH(double w, double c, Bitmap bmp)
+        {
+            //读取窗宽窗位
             for (int i = 0; i < Height; i++)//行
             {
                 for (int j = 0; j < Width; j++)
@@ -64,7 +70,7 @@ namespace DCMLIB
                     {
                         pixel = 0;
                     }
-                    if (pixel >= c + w / 2)
+                    else if (pixel >= c + w / 2)
                     {
                         pixel = 255;
                     }
@@ -74,16 +80,27 @@ namespace DCMLIB
                     }
                     Color p = Color.FromArgb(pixel, pixel, pixel);
                     bmp.SetPixel(j, i, p);
-                    
+
                 }
                 
             }
-            e.Graphics.DrawImage(bmp, 0, 0);
+            return bmp;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedItem.ToString())
+            {
+                case "肺窗": tsWindow.Text = "700"; tsLevel.Text = "-600"; break;
+                case "脑窗": tsWindow.Text = "60"; tsLevel.Text = "35"; break;
+                case "骨窗": tsWindow.Text = "1400"; tsLevel.Text = "600"; break;
+                case "纵膈窗": tsWindow.Text = "350"; tsLevel.Text = "0"; break;
+                case "肝窗": tsWindow.Text = "150"; tsLevel.Text = "30"; break;
+                case "腹窗": tsWindow.Text = "250"; tsLevel.Text = "40"; break;
+                case "脊柱窗": tsWindow.Text = "250"; tsLevel.Text = "40"; break;                  
+            }
+            this.Refresh();
         }
     }
 }

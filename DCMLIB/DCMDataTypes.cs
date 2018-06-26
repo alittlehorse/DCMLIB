@@ -261,19 +261,7 @@ namespace DCMLIB
         {
             //调用文件头的ToString
             String headstr = filemeta.ToString("");
-            string str = "";
-            foreach (DCMAbstractType item in items)
-            {
-                if (item != null)
-                {
-                    if (item.gtag == 0x0002)
-                    { 
-                    continue;
-                    }
-                    if (str != "") str += "\n";  //两个数据元素之间用换行符分割
-                    str += item.ToString(head);
-                }
-            }
+            String str = base.ToString("");
             return headstr+ str;
         }
     }
