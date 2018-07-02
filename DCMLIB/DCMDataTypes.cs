@@ -250,8 +250,9 @@ namespace DCMLIB
             //读取(0002,0010)头元素即filemeta[DicomTags.TransferSyntaxUid]的值，
             //在tsFactory中找到对应的数据集传输语法对象赋给基类的syntax字段
             DCMDataElement synelem = (DCMDataElement)filemeta[DicomTags.TransferSyntaxUid];
-            syntax = tsFactory[synelem.vrparser.GetString(synelem.value, "").Replace("\0","")];
+            syntax = tsFactory[synelem.ReadValue<String>()[0].Replace("\0","")];
 
+            
             //调用base.Decode方法解码数据集
             base.Decode(data, ref idx);
             return items;
@@ -265,6 +266,6 @@ namespace DCMLIB
             return headstr+ str;
         }
     }
-
+     
 
 }

@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace DCMLIB
 {
     public partial class frmImage : Form
     {
-        short[] owpixels;    //OW像素缓冲区
-        sbyte[] obpixels;    //OB像素缓冲区
-        DCMDataSet items;
+        short[] owpixels { set; get; }    //OW像素缓冲区
+        sbyte[] obpixels { set; get; }   //OB像素缓冲区
+        DCMDataSet items { set; get; }
+        ushort bs { set; get; }
+        ushort hb { set; get; }
 
         public frmImage(DCMDataSet items)
         {
@@ -28,12 +31,13 @@ namespace DCMLIB
             this.Height = items[DicomTags.Rows].ReadValue<ushort>()[0];
             tsWindow.Text = items[DicomTags.WindowWidth].ReadValue<String>()[0];
             tsLevel.Text = items[DicomTags.WindowCenter].ReadValue<String>()[0];
-            ushort bs = items[DicomTags.BitsStored].ReadValue<ushort>()[0];//多少位
-            ushort hb = items[DicomTags.HighBit].ReadValue<ushort>()[0];//最高位是什么
+            bs = items[DicomTags.BitsStored].ReadValue<ushort>()[0];//多少位
+            hb = items[DicomTags.HighBit].ReadValue<ushort>()[0];//最高位是什么
             //如果是OW的话,将数据放在owpixels
             if (items[DicomTags.BitsAllocated].ReadValue<UInt16>()[0] == 16)
             {
                 owpixels = items[DicomTags.PixelData].ReadValue<Int16>();
+                
             }
             else {
                 obpixels = items[DicomTags.PixelData].ReadValue<sbyte>();
@@ -47,14 +51,13 @@ namespace DCMLIB
             double  c = double.Parse(tsLevel.Text);
             //获取绘画图像
             Bitmap bmp = new Bitmap(this.Width, this.Height, e.Graphics);
-            //窗宽窗位的变化与显示
-
-            paintSH(w, c, bmp);
+            paintSH(w,c,bmp);
             e.Graphics.DrawImage(bmp, 0, 0);
         }
         public Bitmap paintSH(double w, double c, Bitmap bmp)
         {
-            //读取窗宽窗位
+            int flag = (int)Math.Pow(2, bs) - 1;
+            //窗宽窗位的变化与显示
             for (int i = 0; i < Height; i++)//行
             {
                 for (int j = 0; j < Width; j++)
@@ -63,9 +66,13 @@ namespace DCMLIB
                     int pixel;
                     if (owpixels != null) //ow
                         pixel = owpixels[idx];
+
                     else  //ob
                         pixel = obpixels[idx];
                     //窗宽床位变换
+                    //Int16[] val = {(Int16)pixel };
+                    pixel = pixel >> 0;
+                    pixel = (Int16)((pixel >> (hb - bs + 1)) & flag);
                     if (pixel <= c - w / 2)
                     {
                         pixel = 0;
@@ -82,7 +89,7 @@ namespace DCMLIB
                     bmp.SetPixel(j, i, p);
 
                 }
-                
+
             }
             return bmp;
         }
@@ -100,7 +107,7 @@ namespace DCMLIB
                 case "腹窗": tsWindow.Text = "250"; tsLevel.Text = "40"; break;
                 case "脊柱窗": tsWindow.Text = "250"; tsLevel.Text = "40"; break;                  
             }
-            this.Refresh();
+            Refresh();
         }
     }
 }
