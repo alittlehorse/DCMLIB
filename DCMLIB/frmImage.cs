@@ -70,9 +70,7 @@ namespace DCMLIB
                     else  //ob
                         pixel = obpixels[idx];
                     //窗宽床位变换
-                    //Int16[] val = {(Int16)pixel };
-                    pixel = pixel >> 0;
-                    pixel = (Int16)((pixel >> (hb - bs + 1)) & flag);
+                    pixel = (Int16)((pixel >> (hb - bs + 1)) & flag);//得到实际的像素矩阵
                     if (pixel <= c - w / 2)
                     {
                         pixel = 0;
