@@ -61,7 +61,7 @@ lenght 表示最后的Value占用了多少个字节，
 ```
 这样，就像c语言的变量名和变量值一样，DICOM的语义问题解决了
 
-![image1](https://github.com/alittlehorse/DCMLIB/blob/master/Introduction%20image/DICOM.png)
+![image1](https://github.com/alittlehorse/DCMLIB/blob/master/Introduction%20image/%E6%95%88%E6%9E%9C%E5%9B%BE.png)
 ### 语法问题：
 传输语法定义了三个方面的内容：
 ```
