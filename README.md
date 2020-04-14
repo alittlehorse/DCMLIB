@@ -61,7 +61,7 @@ lenght 表示最后的Value占用了多少个字节，
 ```
 这样，就像c语言的变量名和变量值一样，DICOM的语义问题解决了
 
-![image1](https://github.com/alittlehorse/DCMLIB/blob/master/Introduction%20image/%E6%95%88%E6%9E%9C%E5%9B%BE.png)
+![image1](https://github.com/alittlehorse/DCMLIB/blob/master/Introduction%20image/DICOM.png)
 ### 语法问题：
 传输语法定义了三个方面的内容：
 ```
@@ -85,7 +85,7 @@ lenght 表示最后的Value占用了多少个字节，
 
 以上是一个非常简单的解码过程，在深入DICOM协议的过程中你还会发现非常复杂的编码规则，比如length不确定，留有保留位，**结构体嵌套**等，较为繁琐，请多多查询DICOM文档，再对应阅读源码
 
-![image2](https://github.com/alittlehorse/DCMLIB/tree/master/Introduction%20image/效果图.png)
+![image2](https://github.com/alittlehorse/DCMLIB/blob/master/Introduction%20image/%E6%95%88%E6%9E%9C%E5%9B%BE.png)
 
 # 备注：
 测试图片为\DCMLIB\bin\Debug\dicom.dcm
